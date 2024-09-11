@@ -17,11 +17,16 @@ class AdminController extends Controller
         return view('backend.admin.dashboard.home.index');
     }
 
+    public function login(Request $request) {
+        return view('backend.admin.login.index');
+    }
 
     public function logout(Request $request) {
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');
+        return redirect()->route('admin.login');
     }
+
+    
 }

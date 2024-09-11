@@ -29,11 +29,18 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => ['required', 'string'],
-            'password' => ['required', 'string'],
+            'login' => ['required'],
+            'password' => ['required'],
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'login.required' => 'You have not entered a infomation login.',
+            'password.required' => 'You have not entered a password'
+        ];
+    }
     /**
      * Attempt to authenticate the request's credentials.
      *
