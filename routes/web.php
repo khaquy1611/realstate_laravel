@@ -21,10 +21,10 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'role:admin', 'preventBackHistory', 'redirectIfAuth'])->group(function() {
-    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
+Route::middleware(['auth', 'role:admin', 'preventBackHistory'])->group(function() {
+    Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
-Route::middleware(['auth', 'role:agent', 'preventBackHistory', 'redirectIfAuth'])->group(function() {
-Route::get('agent/dashboard', [AgentController::class, 'index'])->name('agent.index');
+Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() {
+Route::get('agent/dashboard', [AgentController::class, 'index'])->name('agent.dashboard');
 });
