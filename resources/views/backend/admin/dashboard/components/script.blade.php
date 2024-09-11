@@ -1,4 +1,5 @@
 <!-- core:js -->
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/core/core.js') }}"></script>
 <!-- endinject -->
 
@@ -14,4 +15,5 @@
 
 <!-- Custom js for this page -->
 <script src="{{ asset('assets/js/dashboard-dark.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 <!-- End custom js for this page -->

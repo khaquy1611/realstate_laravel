@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mews\Captcha\Facades\Captcha;
 
 class AdminController extends Controller
 {
@@ -28,5 +29,7 @@ class AdminController extends Controller
         return redirect()->route('admin.login');
     }
 
-    
+    public function refreshCaptcha() {
+        return response()->json(['captcha' => Captcha::img('math') ], 200);
+    }
 }

@@ -25,10 +25,12 @@
 <!-- inject:css -->
 <link rel="stylesheet" href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/font-awesome-4.7.0/css/font-awesome.min.css') }}" />
 <!-- endinject -->
 
 <!-- Layout styles -->
 <link rel="stylesheet" href="{{ asset('assets/css/demo2/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
 <!-- End layout styles -->
 
 <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />

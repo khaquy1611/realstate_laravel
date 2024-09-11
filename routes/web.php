@@ -32,3 +32,4 @@ Route::get('agent/dashboard', [AgentController::class, 'index'])->name('agent.da
 
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('admin/refreshCaptcha', [AdminController::class, 'refreshCaptcha'])->name('admin.refresh_captcha');

@@ -29,8 +29,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => ['required'],
-            'password' => ['required'],
+            'login' => 'required',
+            'password' => 'required',
+            'captcha' => 'required|captcha'
         ];
     }
 
@@ -38,7 +39,9 @@ class LoginRequest extends FormRequest
     {
         return [
             'login.required' => 'You have not entered a infomation login.',
-            'password.required' => 'You have not entered a password'
+            'password.required' => 'You have not entered a password',
+            'captcha.required' => 'You have not entered captcha code.',
+            'captcha.captcha' => 'Captcha code is wrong.',
         ];
     }
     /**
