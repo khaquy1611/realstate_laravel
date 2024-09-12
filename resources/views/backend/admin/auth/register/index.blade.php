@@ -25,7 +25,8 @@
                                     <div class="auth-form-wrapper px-4 py-5">
                                         <a href="#"
                                             class="noble-ui-logo logo-light d-block mb-2">ESC<span>UI</span></a>
-                                        <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
+                                        <h5 class="text-muted fw-normal mb-4">Welcome back! Register to your account.
+                                        </h5>
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
                                                 <ul>
@@ -35,13 +36,19 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form class="forms-sample" method="POST" action="{{ route('login') }}">
+                                        <form class="forms-sample" method="POST" action="{{ route('register') }}">
                                             @csrf
                                             <div class="mb-3">
-                                                <label for="login" class="form-label">Email/Name/Phone:</label>
-                                                <input type="text" class="form-control" id="login" name="login"
-                                                    placeholder="Please enter your email/name/phone..."
-                                                    value="{{ old('login') }}" required>
+                                                <label for="name" class="form-label">Name:</label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    placeholder="Please enter your name..." value="{{ old('name') }}"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email:</label>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    placeholder="Please enter your name..." value="{{ old('email') }}"
+                                                    required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password:</label>
@@ -69,21 +76,13 @@
 
                                             </div>
 
-                                            <div class="form-check mb-3">
-                                                <input type="checkbox" class="form-check-input" id="authCheck">
-                                                <label class="form-check-label" for="authCheck">
-                                                    Remember me
-                                                </label>
-                                            </div>
                                             <div>
                                                 <button type="submit"
                                                     class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
 
-                                                    Login
+                                                    Register
                                                 </button>
                                             </div>
-                                            <a href="" class="d-block mt-3 text-muted">Not a user? Sign
-                                                up</a>
                                         </form>
                                     </div>
                                 </div>

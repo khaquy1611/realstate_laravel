@@ -30,6 +30,6 @@ Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function(
 Route::get('agent/dashboard', [AgentController::class, 'index'])->name('agent.dashboard');
 });
 
-
+Route::get('admin/register', [AdminController::class, 'register'])->name('admin.register');
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::get('admin/refreshCaptcha', [AdminController::class, 'refreshCaptcha'])->name('admin.refresh_captcha');
