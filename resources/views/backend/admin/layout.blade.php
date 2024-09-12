@@ -13,9 +13,7 @@
         <nav class="sidebar">
             @include('backend.admin.dashboard.components.sidebar')
         </nav>
-        <nav class="settings-sidebar">
-            @include('backend.admin.dashboard.components.sidebar-settings')
-        </nav>
+
         <!-- partial -->
 
         <div class="page-wrapper">

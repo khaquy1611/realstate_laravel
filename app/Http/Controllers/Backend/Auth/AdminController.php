@@ -64,6 +64,9 @@ class AdminController extends Controller
        }
     }
 
+    public function admin_users_list() {
+        echo 1;die();
+    }
     public function logout(Request $request) {
         Auth::guard('web')->logout();
         $request->session()->invalidate();

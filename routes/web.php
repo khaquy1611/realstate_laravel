@@ -26,6 +26,9 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory'])->group(function(
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('admin/profiles', [AdminController::class, 'profiles'])->name('admin.profiles');
     Route::post('admin/profiles/update', [AdminController::class, 'profiles_update'])->name('admin.profiles.update');
+
+    /* Users */
+    Route::get('admin/user', [AdminController::class, 'admin_users_list'])->name('admin.users.index');
 });
 
 Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() {

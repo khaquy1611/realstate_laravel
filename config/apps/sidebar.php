@@ -2,19 +2,27 @@
 return [
     'module' => [
         [
-            'title' => 'Article',
+            'placeholderTitle' => 'Main',
+            'title' => 'Dashboard',
+            'icon' => 'link-icon',
+            'route' => 'dashboard',
+            'data-feather' => 'box',
+            'class' => 'nav-item',
+            'name' => ['dashboard'],
+        ],
+        [
+            'placeholderTitle' => 'Role',
+            'title' => "Users Manager",
+            'collapse' => 'user',
             'icon' => 'link-icon',
             'class' => 'nav-item',
-            'name' => ['email'],
+            'data-feather' => 'user',
+            'name' => ['user'],
             'subModule' => [
                 [
-                    'title' => 'Inbox',
-                    'route' => '/'
+                    'title' => 'User List',
+                    'route' => 'user'
                 ],
-                [
-                    'title' => 'Read',
-                    'route' => '/'
-                ]
             ]
         ],
     ],
