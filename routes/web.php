@@ -24,6 +24,7 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'role:admin', 'preventBackHistory'])->group(function() {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('admin/profiles', [AdminController::class, 'profiles'])->name('admin.profiles');
 });
 
 Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() {

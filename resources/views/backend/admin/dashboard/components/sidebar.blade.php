@@ -38,7 +38,7 @@
                         <ul class="nav sub-menu">
                             @foreach ($val['subModule'] as $module)
                                 <li class="nav-item">
-                                    <a href="{{ $module['route'] }}" class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">{{ $module['title'] }}</a>
+                                    <a href="{{ $module['route'] }}" class="nav-link {{ in_array($segment, $val['name']) ? 'active' : '' }}">{{ $module['title'] }}</a>
                                 </li>
                             @endforeach
                         </ul>

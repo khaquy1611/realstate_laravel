@@ -25,6 +25,10 @@ class AdminController extends Controller
     public function register(Request $request) {
         return view('backend.admin.auth.register.index');
     }
+
+    public function profiles() {
+        return view('backend.admin.profiles.index');
+    }
     
     public function logout(Request $request) {
         Auth::guard('web')->logout();
