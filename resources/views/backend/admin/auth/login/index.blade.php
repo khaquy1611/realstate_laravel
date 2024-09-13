@@ -25,7 +25,7 @@
                                     <div class="auth-form-wrapper px-4 py-5">
                                         <a href="#"
                                             class="noble-ui-logo logo-light d-block mb-2">ESC<span>UI</span></a>
-                                        <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
+                                        <h5 class="text-muted fw-normal mb-4">Chào Mừng! Đăng nhập vào tài khoản của bạn.</h5>
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
                                                 <ul>
@@ -38,23 +38,23 @@
                                         <form class="forms-sample" method="POST" action="{{ route('login') }}">
                                             @csrf
                                             <div class="mb-3">
-                                                <label for="login" class="form-label">Email/Name/Phone:</label>
-                                                <input type="text" class="form-control" id="login" name="login"
-                                                    placeholder="Please enter your email/name/phone..."
-                                                    value="{{ old('login') }}" required>
+                                                <label for="email" class="form-label">Email:</label>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    placeholder="Vui lòng nhập Email..."
+                                                    value="{{ old('email') }}" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="password" class="form-label">Password:</label>
+                                                <label for="password" class="form-label">Mật Khẩu:</label>
                                                 <input type="password" class="form-control" id="password"
                                                     autocomplete="current-password"
-                                                    placeholder="Please enter your password..."
+                                                    placeholder="Vui lòng nhập mật khẩu của bạn..."
                                                     value="{{ old('password') }}" name="password">
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="captcha">Captcha Code:</label>
+                                                <label for="captcha">Mã Captcha:</label>
                                                 <input type="text" class="form-control" id="captcha"
-                                                    placeholder="Please enter your captcha code..."
+                                                    placeholder="Vui lòng nhập mã captcha..."
                                                     value="{{ old('captcha') }}" name="captcha">
                                                 <br>
                                                 <span id="captcha-img">
@@ -72,18 +72,17 @@
                                             <div class="form-check mb-3">
                                                 <input type="checkbox" class="form-check-input" id="authCheck">
                                                 <label class="form-check-label" for="authCheck">
-                                                    Remember me
+                                                    Ghi nhớ tài khoản
                                                 </label>
                                             </div>
                                             <div>
                                                 <button type="submit"
                                                     class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
 
-                                                    Login
+                                                    Đăng Nhập
                                                 </button>
                                             </div>
-                                            <a href="{{ route('register')}}" class="d-block mt-3 text-muted">Not a user? Sign
-                                                up</a>
+                                            <a href="{{ route('register')}}" class="d-block mt-3 text-muted">Chưa có tài khoản ? Đăng Ký</a>
                                         </form>
                                     </div>
                                 </div>

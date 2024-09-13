@@ -12,7 +12,7 @@ return [
         ],
         [
             'placeholderTitle' => 'Role',
-            'title' => "Users Manager",
+            'title' => "Quản lí người dùng",
             'collapse' => 'user',
             'icon' => 'link-icon',
             'class' => 'nav-item',
@@ -20,7 +20,7 @@ return [
             'name' => ['user'],
             'subModule' => [
                 [
-                    'title' => 'User List',
+                    'title' => 'Danh sách người dùng',
                     'route' => 'user'
                 ],
             ]

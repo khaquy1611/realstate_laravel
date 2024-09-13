@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class AuthRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'email' => 'required|email',
+            'password' => 'required',
+            'captcha' => 'required|captcha'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Bạn chưa nhập vào Email.',
+            'email.email' => 'Email chưa đúng định dạng. Ví dụ: abc@gmail.com',
+            'password.required' => 'Bạn chưa nhập vào mật khẩu.',
+            'captcha.required' => 'Bạn chưa nhập mã captcha',
+            'captcha.captcha' => 'Mã captcha của bạn bị sai, vui lòng nhập lại.',
+        ];
+    }
+}

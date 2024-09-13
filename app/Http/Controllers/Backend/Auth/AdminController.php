@@ -9,6 +9,8 @@ use Mews\Captcha\Facades\Captcha;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\AuthRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 
 class AdminController extends Controller
@@ -22,12 +24,37 @@ class AdminController extends Controller
         return view('backend.admin.dashboard.home.index');
     }
 
-    public function login() {
+    public function login_form() {
         return view('backend.admin.auth.login.index');
     }
 
-    public function register() {
+    public function login(AuthRequest $request) {
+        $credentials = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ];
+        if (Auth::attempt($credentials, true)) {
+            $request->session()->regenerate();
+            return redirect()->route('2FA.form')->with('success','Đăng nhập thành công');
+        }else {
+            return redirect()->route('login.show')->with('error','Email hoặc Mật khẩu không chính xác');
+        }
+    }
+    
+    public function register_form() {
         return view('backend.admin.auth.register.index');
+    }
+
+    // Register function
+    public function register(RegisterRequest $request) {
+
+        $user = new User();
+        $user->name = trim($request->name);
+        $user->email = trim($request->email);
+        $user->password = Hash::make($request->password);
+        $user->passwordConfirm = Hash::make($request->passwordConfirm);
+        $user->save();
+        return redirect()->route('register')->with('success', 'Đăng Ký tài khoản thành công');
     }
 
     public function profiles() {
@@ -71,7 +98,7 @@ class AdminController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        return redirect()->route('login');
     }
 
     public function refreshCaptcha() {
