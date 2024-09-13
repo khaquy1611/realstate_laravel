@@ -92,7 +92,12 @@ class AdminController extends Controller
     }
 
     public function admin_users_list() {
-        echo 1;die();
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
+            ['name' => 'Danh sách người dùng', 'url' => route('admin.users.index')],      
+        ];
+        $data['getRecord'] = User::getRecord();
+        return view('backend.admin.users.list', compact('breadcrumbs', 'data'));
     }
     public function logout(Request $request) {
         Auth::guard('web')->logout();
@@ -103,5 +108,24 @@ class AdminController extends Controller
 
     public function refreshCaptcha() {
         return response()->json(['captcha' => Captcha::img('math') ], 200);
+    }
+
+    public function toggleStatus(Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        if ($user) {
+            // Thay đổi trạng thái kích hoạt
+            $user->status = !$user->status;
+            $user->save();
+
+            // Trả về kết quả thành công và trạng thái mới
+            return response()->json([
+                'success' => true,
+                'status' => $user->status
+            ]);
+        }
+
+        return response()->json(['success' => false], 404);
     }
 }

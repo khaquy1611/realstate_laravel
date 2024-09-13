@@ -39,6 +39,7 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(fu
 
     /* Users */
     Route::get('admin/user', [AdminController::class, 'admin_users_list'])->name('admin.users.index');
+    Route::post('admin/users/toggle-status', [AdminController::class, 'toggleStatus'])->name('admin.users.toggle-status');
 });
 
 Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() { 

@@ -9,3 +9,6 @@
 .qr-code-container svg g {
     transform: translate(30px, 30px) scale(2.5)!important; /* Tăng kích thước lên 1.5 lần */
 }
+.pagination {
+    margin: 20px 0;
+}
