@@ -65,11 +65,20 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <button
-                                                    class="toggle-status-btn btn {{ $val->status ? 'btn-danger' : 'btn-primary' }}"
+                                                <a
+                                                    class="toggle-status-btn btn btn-small {{ $val->status ? 'btn-danger' : 'btn-primary' }}"
                                                     data-user-id="{{ $val->id }}">
                                                     {{ $val->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
-                                                </button>
+                                                </a>
+
+                                                <a class="dropdown-item d-flex view-details align-items-center btn-success" href="{{ route('admin.user.details', $val->id) }}"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-eye icon-sm me-2">
+                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                        <circle cx="12" cy="12" r="3"></circle>
+                                                    </svg> <span class="">Xem chi tiết</span></a>
                                             </td>
                                             <td>{{ date('d-m-Y', strtotime($val->created_at)) }}</td>
                                         </tr>

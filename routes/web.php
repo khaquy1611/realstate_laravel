@@ -37,9 +37,10 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(fu
     Route::get('admin/profiles', [AdminController::class, 'profiles'])->name('admin.profiles');
     Route::post('admin/profiles/update', [AdminController::class, 'profiles_update'])->name('admin.profiles.update');
 
-    /* Users */
+    /* Admin Users */
     Route::get('admin/user', [AdminController::class, 'admin_users_list'])->name('admin.users.index');
     Route::post('admin/users/toggle-status', [AdminController::class, 'toggleStatus'])->name('admin.users.toggle-status');
+    Route::get('admin/users/details/{id}', [AdminController::class, 'admin_users_details'])->name('admin.user.details');
 });
 
 Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() { 

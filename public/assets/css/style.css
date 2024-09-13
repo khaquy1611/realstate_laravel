@@ -12,3 +12,13 @@
 .pagination {
     margin: 20px 0;
 }
+.view-details {
+    margin: 10px 0;
+    background: #348398;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+.view-details svg {
+    color: #fff;
+}

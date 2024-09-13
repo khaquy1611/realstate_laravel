@@ -128,4 +128,15 @@ class AdminController extends Controller
 
         return response()->json(['success' => false], 404);
     }
+
+    public function admin_users_details($id = '') {
+        $data['getRecord'] = User::find($id);
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
+            ['name' => 'Danh sách người dùng', 'url' => route('admin.users.index')],     
+            ['name' => 'Xem chi tiết thông tin người dùng', 'url' => route('admin.user.details', $data['getRecord']->id)],     
+        ];
+       
+        return view('backend.admin.users.details', compact('breadcrumbs', 'data'));
+    }
 }
