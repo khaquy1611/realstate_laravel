@@ -23,7 +23,7 @@
             <li
                 class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse"
-                    href="{{ !isset($val['subModule']) ? $val['route'] : "#$collapse" }}" role="button"
+                    href="{{ !isset($val['subModule']) ? route($val['route']) : "#$collapse" }}" role="button"
                     aria-expanded="false" aria-controls="{{ $collapse }}">
                     <i class="{{ $val['icon'] }}" data-feather="{{ $val['data-feather'] }}"></i>
                     <span class="link-title">{{ $val['title'] }}</span>
@@ -37,7 +37,8 @@
                         <ul class="nav sub-menu">
                             @foreach ($val['subModule'] as $module)
                                 <li class="nav-item">
-                                    <a href="{{ $module['route'] }}" class="nav-link">{{ $module['title'] }}</a>
+                                    <a href="{{ route($module['route']) }}"
+                                        class="nav-link">{{ $module['title'] }}</a>
                                 </li>
                             @endforeach
                         </ul>

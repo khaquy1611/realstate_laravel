@@ -5,7 +5,7 @@ return [
             'placeholderTitle' => 'Main',
             'title' => 'Dashboard',
             'icon' => 'link-icon',
-            'route' => 'dashboard',
+            'route' => 'admin.dashboard',
             'data-feather' => 'box',
             'class' => 'nav-item',
             'name' => ['dashboard'],
@@ -21,7 +21,7 @@ return [
             'subModule' => [
                 [
                     'title' => 'Danh sách người dùng',
-                    'route' => 'user'
+                    'route' => 'admin.users.index'
                 ],
             ]
         ],

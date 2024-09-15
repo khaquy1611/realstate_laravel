@@ -6,6 +6,9 @@
 <meta name="keywords"
     content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>NobleUI - HTML Bootstrap 5 Admin Dashboard Template</title>
 
 <!-- Fonts -->
