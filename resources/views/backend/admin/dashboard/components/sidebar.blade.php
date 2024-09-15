@@ -26,7 +26,7 @@
             @php
                 $collapse = isset($val['collapse']) ? $val['collapse'] : null;
             @endphp
-            <li class="nav-item nav-category">{{ $val['placeholderTitle'] }}</li>
+            <li class="nav-item nav-category">Role</li>
             <li
                 class="{{ isset($val['class']) ? $val['class'] : '' }} {{ in_array($segment, $val['name']) ? 'active' : '' }}">
                 <a class="nav-link" data-bs-toggle="collapse"

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\Auth\AdminController;
 use App\Http\Controllers\Backend\Auth\AgentController;
 use App\Http\Controllers\Backend\Auth\TwoFactorController;
+use App\Http\Controllers\Backend\Email\EmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,6 +42,9 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(fu
     Route::get('admin/users', [AdminController::class, 'admin_users_list'])->name('admin.users.index');
     Route::post('admin/users/toggle-status', [AdminController::class, 'toggleStatus'])->name('admin.users.toggle-status');
     Route::get('admin/users/{id}', [AdminController::class, 'admin_users_details'])->name('admin.user.details');
+    /* Email */
+    Route::get('admin/email/compose', [EmailController::class, 'email_compose'])->name('admin.email.compose');
+    Route::post('admin/email/compose', [EmailController::class, 'email_compose_post'])->name('admin.email.compose');
 });
 
 Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() { 
