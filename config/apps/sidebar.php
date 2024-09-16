@@ -4,6 +4,7 @@ return [
         [
             'title' => "Quản lí người dùng",
             'collapse' => 'user',
+            'placeHolderTitle' => 'Role',
             'icon' => 'link-icon',
             'class' => 'nav-item',
             'data-feather' => 'user',
@@ -18,6 +19,7 @@ return [
         [
             'title' => "Quản lí Email",
             'collapse' => 'email',
+            'placeHolderTitle' => 'Web apps',
             'icon' => 'link-icon',
             'class' => 'nav-item',
             'data-feather' => 'mail',

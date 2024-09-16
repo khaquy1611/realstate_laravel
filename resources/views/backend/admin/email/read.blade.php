@@ -35,17 +35,6 @@
                                         <a href="#" class="text-body">{{ $data['getRecord']->cc_email }}</a>
                                         <span class="mx-2 text-muted">đến</span>
                                         <a href="#" class="text-body me-2">{{ $data['getRecord']->user->email }}</a>
-                                        <div class="actions dropdown">
-                                            <a href="#" data-bs-toggle="dropdown"><i data-feather="chevron-down"
-                                                    class="icon-lg text-muted"></i></a>
-                                            <div class="dropdown-menu" role="menu">
-                                                <a class="dropdown-item" href="#">Mark as read</a>
-                                                <a class="dropdown-item" href="#">Mark as unread</a>
-                                                <a class="dropdown-item" href="#">Spam</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-danger" href="#">Delete</a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="tx-13 text-muted mt-2 mt-sm-0">

@@ -15,8 +15,7 @@
                                     <div class="col-lg-6">
                                         <div class="d-flex align-items-end mb-2 mb-md-0">
                                             <i data-feather="inbox" class="text-muted me-2"></i>
-                                            <h4 class="me-1">Inbox</h4>
-                                            <span class="text-muted">(2 new messages)</span>
+                                            <h4 class="me-1">Thư đã gửi</h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -33,34 +32,11 @@
                                     <div class="form-check me-3">
                                         <input type="checkbox" class="form-check-input" id="inboxCheckAll">
                                     </div>
+
                                     <div class="btn-group me-2">
-                                        <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                            type="button"> With selected <span class="caret"></span></button>
-                                        <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item" href="#">Mark as read</a>
-                                            <a class="dropdown-item" href="#">Mark as unread</a><a
-                                                class="dropdown-item" href="#">Spam</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger"
-                                                href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group me-2">
-                                        <button class="btn btn-outline-primary" type="button">Archive</button>
-                                        <button class="btn btn-outline-primary" type="button">Span</button>
                                         <a id="getDeleteUrl"
                                             onclick="return confirm('Bạn có chắc muốn xóa trường này không?')"
                                             class="btn btn-outline-primary" type="button">Delete</a>
-                                    </div>
-                                    <div class="btn-group me-2 d-none d-xl-block">
-                                        <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                            type="button">Order by <span class="caret"></span></button>
-                                        <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item" href="#">Date</a>
-                                            <a class="dropdown-item" href="#">From</a>
-                                            <a class="dropdown-item" href="#">Subject</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Size</a>
-                                        </div>
                                     </div>
                                 </div>
                                 @if (empty($data['getRecord']) || $data['getRecord']->count() == 0)
