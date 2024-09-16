@@ -5,10 +5,20 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-
+                @include('backend.admin._message')
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <h6 class="card-title">Thêm mới người dùng</h6>
 
-                <form class="forms-sample">
+                <form class="forms-sample" action="{{ route('admin.users.store') }}" method="POST">
+                    @csrf
                     <div class="row mb-3">
                         <label for="name" class="col-sm-3 col-form-label">Tên: <span style="color:red">(*)</span></label>
                         <div class="col-sm-9">
@@ -70,8 +80,23 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <label for="phone" class="col-sm-3 col-form-label">Trạng thái: <span
+                                style="color:red">(*)</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="status" required>
+                                <option value="">-- Chọn trạng thái --</option>
+                                <option value="1">Kích hoạt
+                                </option>
+                                <option value="0">Không kích hoạt
+                                </option>
+
+                            </select>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
-                    <a href="{{ route('admin.users.index')}}" class="btn btn-secondary">
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
                         <i class="link-icon" data-feather="arrow-left"></i>
                         Quay trở lại
                     </a>

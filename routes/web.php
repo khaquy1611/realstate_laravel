@@ -41,6 +41,7 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(fu
     /* Admin Users */
     Route::get('admin/users', [AdminController::class, 'admin_users_list'])->name('admin.users.index');
     Route::get('admin/users/create', [AdminController::class, 'admin_users_create'])->name('admin.users.create');
+    Route::post('admin/users/store', [AdminController::class, 'admin_users_store'])->name('admin.users.store');
     Route::post('admin/users/toggle-status', [AdminController::class, 'toggleStatus'])->name('admin.users.toggle-status');
     Route::get('admin/users/{id}', [AdminController::class, 'admin_users_details'])->name('admin.user.details');
     /* Email */

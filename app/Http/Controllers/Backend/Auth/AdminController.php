@@ -11,7 +11,9 @@ use Illuminate\Support\Str;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+
 
 class AdminController extends Controller
 {
@@ -153,5 +155,24 @@ class AdminController extends Controller
             ['name' => 'Tạo mới người dùng', 'url' => route('admin.users.create')],      
         ];
         return view('backend.admin.users.create', compact('breadcrumbs'));
+    }
+
+
+    public function admin_users_store(StoreUserRequest $request) {
+        $user = new User;
+        $user->name = trim($request->input('name'));
+        $user->username = trim($request->input('username'));
+        $user->email = trim($request->input('email'));
+        if(!empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('$password'));
+        } 
+        $user->address = trim($request->input('address'));   
+        $user->phone = trim($request->input('phone'));
+        $user->role = trim($request->input('role'));
+        $user->status = trim($request->input('status'));
+        if ($user->save()) {
+            return redirect()->route('admin.users.create')->with('success', 'Thêm mới người dùng thành công.');
+        }
+        return redirect()->route('admin.users.create')->with('error', 'Thêm mới người dùng thất bại.');
     }
 }
