@@ -38,9 +38,10 @@ class EmailController extends Controller
     }
 
     public function email_compose_send() {
-       $data['getRecord'] = ComposeEmail::get();
+       $data['getRecord'] = ComposeEmail::getRecord();
        return view('backend.admin.email.send', compact('data'));
     }
+    
     public function email_compose_send_delete(Request $request) {
         $ids = trim($request->query('ids'));
         if (!empty($ids)) {
@@ -51,5 +52,18 @@ class EmailController extends Controller
             }
             return redirect()->back()->with('error', 'Xóa thư đã gửi không thành công. Vui lòng thử lại.');
         }
+    }
+
+    public function email_compose_read($id = '', Request $request) {
+        $data['getRecord'] = ComposeEmail::find($id);
+        return view('backend.admin.email.read', compact('data'));
+    }
+
+    public function email_compose_read_delete($id, Request $request) {
+        $dataRecord = ComposeEmail::find($id);
+        if ($dataRecord->delete()) {
+            return redirect()->route('admin.email.send')->with('success', 'Xóa thư đã gửi thành công');
+        }
+        return redirect()->route('admin.email.send')->with('success', 'Xóa thư đã gửi thất bại, Vui lòng thử lại!');
     }
 }

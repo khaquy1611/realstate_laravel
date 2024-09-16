@@ -54,4 +54,9 @@ class User extends Authenticatable
         $resultQuery = $resultQuery->paginate(5);
         return $resultQuery;
     }
+
+    public function emails()
+    {
+        return $this->hasMany(ComposeEmail::class, 'user_id');
+    }
 }

@@ -47,6 +47,9 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(fu
     Route::post('admin/email/compose', [EmailController::class, 'email_compose_post'])->name('admin.email.compose');
     Route::get('admin/email/send', [EmailController::class, 'email_compose_send'])->name('admin.email.send');
     Route::get('admin/email/delete', [EmailController::class, 'email_compose_send_delete'])->name('admin.email.delete');
+    Route::get('admin/email/delete', [EmailController::class, 'email_compose_send_delete'])->name('admin.email.delete');
+    Route::get('admin/email/read/{id}', [EmailController::class, 'email_compose_read'])->name('admin.email.read');
+    Route::get('admin/email/read/delete/{id}', [EmailController::class, 'email_compose_read_delete'])->name('admin.email.read.delete');
 });
 
 Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() { 
