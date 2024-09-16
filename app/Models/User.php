@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Request;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'status',
+        'created_at',
+        'username',
+        'name',
+        'address',
+        'phone',
+        'website',
         'google2fa_secret',
     ];
     
@@ -48,10 +57,46 @@ class User extends Authenticatable
         ];
     }
 
-    static public function getRecord() {
+    static public function getRecord($request) {
         $resultQuery = self::select('users.*')
                     ->orderBy('id', 'desc');
+                    if (!empty(Request::get('id'))) {
+                        $resultQuery =  $resultQuery->where('users.id', '=' , Request::get('id'));
+                    }
+                    if (!empty(Request::get('name'))) {
+                        $resultQuery =  $resultQuery->where('users.name', 'like' , '%' . Request::get('name') . '%');
+                    }
+                    if (!empty(Request::get('username'))) {
+                        $resultQuery =  $resultQuery->where('users.username', 'like' , '%' . Request::get('username') . '%');
+                    }
+                    if (!empty(Request::get('email'))) {
+                        $resultQuery =  $resultQuery->where('users.email', '=' , Request::get('email'));
+                    }
+                    if (!empty(Request::get('phone'))) {
+                        $resultQuery =  $resultQuery->where('users.phone', '=', Request::get('phone'));
+                    }
+                    if (!empty(Request::get('address'))) {
+                        $resultQuery =  $resultQuery->where('users.address', 'like' , '%' . Request::get('address') . '%');
+                    }
+                    
+                    if (!empty(Request::get('website'))) {
+                        $resultQuery =  $resultQuery->where('users.website', '=', Request::get('website'));
+                    }
+
+                    if (!empty(Request::get('created_at'))) {
+                        $resultQuery =  $resultQuery->where('users.created_at', 'like' , '%' . Request::get('created_at') . '%' );
+                    }
+                   
+                   
+                    if (!empty(Request::get('role'))) {
+                        $resultQuery =  $resultQuery->where('users.role', '=' , Request::get('role'));
+                    }
+                    
+                    if (!empty(Request::get('status'))) {
+                        $resultQuery =  $resultQuery->where('users.status', '=' , Request::get('status'));
+                    }
         $resultQuery = $resultQuery->paginate(5);
+        $resultQuery->appends($request->all());
         return $resultQuery;
     }
 

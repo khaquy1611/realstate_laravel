@@ -97,12 +97,12 @@ class AdminController extends Controller
        }
     }
 
-    public function admin_users_list() {
+    public function admin_users_list(Request $request) {
         $breadcrumbs = [
             ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
             ['name' => 'Danh sách người dùng', 'url' => route('admin.users.index')],      
         ];
-        $data['getRecord'] = User::getRecord();
+        $data['getRecord'] = User::getRecord($request);
         return view('backend.admin.users.list', compact('breadcrumbs', 'data'));
     }
     public function logout(Request $request) {

@@ -8,40 +8,43 @@
                     <div class="card-title">
                         Tìm kiếm người dùng
                     </div>
-                    <form action="">
+                    <form action="{{ route('admin.users.index') }}" method="GET">
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Mã STT:</div>
-                                    <input type="text" name="id" class="form-control"
+                                    <input type="text" name="id" value="{{ Request()->id }}" class="form-control"
                                         placeholder="Nhập mã thứ tự...">
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Tên:</div>
-                                    <input type="text" name="name" class="form-control" placeholder="Nhập tên...">
+                                    <input type="text" name="name" value="{{ Request()->name }}" class="form-control"
+                                        placeholder="Nhập tên...">
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Họ tên:</div>
-                                    <input type="text" name="username" class="form-control" placeholder="Nhập họ tên...">
+                                    <input type="text" name="username" value="{{ Request()->username }}"
+                                        class="form-control" placeholder="Nhập họ tên...">
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Email:</div>
-                                    <input type="text" name="email" class="form-control" placeholder="Nhập email...">
+                                    <input type="text" name="email" value="{{ Request()->email }}" class="form-control"
+                                        placeholder="Nhập email...">
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Số điện thoại:</div>
-                                    <input type="text" name="phone" class="form-control"
+                                    <input type="text" name="phone" value="{{ Request()->phone }}" class="form-control"
                                         placeholder="Nhập số điện thoại...">
                                 </div>
                             </div>
@@ -49,27 +52,38 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Địa chỉ:</div>
-                                    <input type="text" name="address" class="form-control"
-                                        placeholder="Nhập địa chỉ nơi ở...">
+                                    <input type="text" name="address" value="{{ Request()->address }}"
+                                        class="form-control" placeholder="Nhập địa chỉ nơi ở...">
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Website:</div>
-                                    <input type="text" name="website" class="form-control"
-                                        placeholder="Nhập địa chỉ website...">
+                                    <input type="text" name="website" value="{{ Request()->website }}"
+                                        class="form-control" placeholder="Nhập địa chỉ website...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Ngày tạo:</div>
+                                    <input type="date" name="created_at" value="{{ Request()->created_at }}"
+                                        class="form-control" placeholder="Tìm kiếm theo ngày...">
                                 </div>
                             </div>
 
                             <div class="col-sm-2">
                                 <div class="mb-3">
                                     <div class="form-label">Vai trò:</div>
-                                    <select name="" class="form-control" id="" name="role">
+                                    <select class="form-control" name="role">
                                         <option value="">-- Chọn vai trò --</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="agent">Agent</option>
-                                        <option value="user">User</option>
+                                        <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin
+                                        </option>
+                                        <option value="agent" {{ request('role') == 'agent' ? 'selected' : '' }}>Agent
+                                        </option>
+                                        <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>User
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -77,13 +91,18 @@
                             <div class="col-sm-2">
                                 <div class="mb-3">
                                     <div class="form-label">Trạng thái:</div>
-                                    <select name="" class="form-control" id="" name="status">
-                                        <option value="">-- Chọn trạng thái --</option>
-                                        <option value="0">Không kích hoạt</option>
-                                        <option value="1">Kích hoạt</option>
+                                    <select class="form-control" name="status">
+                                        <option value="">-- Chọn Trạng Thái --</option>
+                                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Kích hoạt
+                                        </option>
+                                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Không kích
+                                            hoạt
+                                        </option>
+
                                     </select>
                                 </div>
                             </div>
+
                         </div>
                         <button type="submit" class="btn btn-primary">
 
