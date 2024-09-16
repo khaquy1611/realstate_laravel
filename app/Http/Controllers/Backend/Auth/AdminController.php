@@ -145,4 +145,13 @@ class AdminController extends Controller
        
         return view('backend.admin.users.details', compact('breadcrumbs', 'data'));
     }
+
+
+    public function admin_users_create() {
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
+            ['name' => 'Tạo mới người dùng', 'url' => route('admin.users.create')],      
+        ];
+        return view('backend.admin.users.create', compact('breadcrumbs'));
+    }
 }

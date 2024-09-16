@@ -76,6 +76,10 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary me-2">Cập nhập profiles</button>
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
+                                <i class="link-icon" data-feather="arrow-left"></i>
+                                Quay trở lại
+                            </a>
                         </form>
 
                     </div>
