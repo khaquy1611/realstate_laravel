@@ -31,9 +31,10 @@
                                             </a>
                                         </li>
                                         <li class="nav-item active">
-                                            <a class="nav-link d-flex align-items-center" href="{{ route('admin.email.compose')}}">
+                                            <a class="nav-link d-flex align-items-center"
+                                                href="{{ route('admin.email.send') }}">
                                                 <i data-feather="mail" class="icon-lg me-2"></i>
-                                                Gửi Mail
+                                                Thư đã gửi
                                             </a>
                                         </li>
                                         <li class="nav-item">

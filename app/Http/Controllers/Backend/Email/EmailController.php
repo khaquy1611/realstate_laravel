@@ -36,4 +36,21 @@ class EmailController extends Controller
        }
        return redirect()->route('admin.email.compose')->with('error', 'Gửi Email thất bại. Vui lòng gửi lại');
     }
+
+    public function email_compose_send() {
+       $data['getRecord'] = ComposeEmail::get();
+       return view('backend.admin.email.send', compact('data'));
+    }
+    public function email_compose_send_delete(Request $request) {
+        if (!empty($request->id)) {
+            $option = explode(',', $request->id);
+            foreach($option as $key => $id) {
+                if (!empty($id)) {
+                    $getRecord = ComposeEmail::find($id);
+                    $getRecord->delete();
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Đã xóa thư đã gửi thành công.');
+    }
 }

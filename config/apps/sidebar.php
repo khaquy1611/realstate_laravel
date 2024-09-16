@@ -24,8 +24,12 @@ return [
             'name' => ['email'],
             'subModule' => [
                 [
-                    'title' => 'Gửi Email',
+                    'title' => 'Soạn Email',
                     'route' => 'admin.email.compose'
+                ],
+                [
+                    'title' => 'Thư đã gửi',
+                    'route' => 'admin.email.send'
                 ],
             ]
         ],

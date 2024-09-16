@@ -171,9 +171,24 @@
             });
         });
     };
+    HT.deleteListMail = () => {
+        $('.delete-all-option').change(function() {
+            let total = '';
+            $('.delete-all-option').each(function() {
+                if (this.checked) {
+                    let id = $(this).val();
+                    total += id + ',';
+                }
+            }); 
+           
+            let url = urlMailDelete + total;
+            $('#getDeleteUrl').attr('href', url);
+        })
+    }
     $(document).ready(function () {
         HT.refreshCaptcha();
         HT.switchStatus();
         HT.customUsersCharts();
+        HT.deleteListMail();
     });
 })(jQuery);
