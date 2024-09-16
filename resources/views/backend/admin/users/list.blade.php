@@ -5,6 +5,105 @@
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="card-title">
+                        Tìm kiếm người dùng
+                    </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Mã STT:</div>
+                                    <input type="text" name="id" class="form-control"
+                                        placeholder="Nhập mã thứ tự...">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Tên:</div>
+                                    <input type="text" name="name" class="form-control" placeholder="Nhập tên...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Họ tên:</div>
+                                    <input type="text" name="username" class="form-control" placeholder="Nhập họ tên...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Email:</div>
+                                    <input type="text" name="email" class="form-control" placeholder="Nhập email...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Số điện thoại:</div>
+                                    <input type="text" name="phone" class="form-control"
+                                        placeholder="Nhập số điện thoại...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Địa chỉ:</div>
+                                    <input type="text" name="address" class="form-control"
+                                        placeholder="Nhập địa chỉ nơi ở...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="mb-3">
+                                    <div class="form-label">Website:</div>
+                                    <input type="text" name="website" class="form-control"
+                                        placeholder="Nhập địa chỉ website...">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="mb-3">
+                                    <div class="form-label">Vai trò:</div>
+                                    <select name="" class="form-control" id="" name="role">
+                                        <option value="">-- Chọn vai trò --</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="agent">Agent</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="mb-3">
+                                    <div class="form-label">Trạng thái:</div>
+                                    <select name="" class="form-control" id="" name="status">
+                                        <option value="">-- Chọn trạng thái --</option>
+                                        <option value="0">Không kích hoạt</option>
+                                        <option value="1">Kích hoạt</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+
+                            <i class="link-icon" data-feather="search"></i>
+                            Tìm kiếm
+                        </button>
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-danger refresh">
+
+                            <i class="link-icon" data-feather="refresh-ccw"></i>
+                            Tải lại
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 stretch-card">
+            <div class="card">
+                <div class="card-body">
                     <h4 class="card-title">Danh sách người dùng</h4>
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
@@ -65,13 +164,13 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a
-                                                    class="toggle-status-btn btn btn-small {{ $val->status ? 'btn-danger' : 'btn-primary' }}"
+                                                <a class="toggle-status-btn btn btn-small {{ $val->status ? 'btn-danger' : 'btn-primary' }}"
                                                     data-user-id="{{ $val->id }}">
                                                     {{ $val->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
                                                 </a>
 
-                                                <a class="dropdown-item d-flex view-details align-items-center btn-success" href="{{ route('admin.user.details', $val->id) }}"><svg
+                                                <a class="dropdown-item d-flex view-details align-items-center btn-success"
+                                                    href="{{ route('admin.user.details', $val->id) }}"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
