@@ -13,12 +13,12 @@
                                     <span class="icon"><i data-feather="chevron-down"></i></span>
                                 </button>
                                 <div class="order-first">
-                                    <h4>Mail Service</h4>
-                                    <p class="text-muted">amiahburton@gmail.com</p>
+                                    <h4>Dịch vụ Email</h4>
+                                    <p class="text-muted">{{ Auth::user()->email }}</p>
                                 </div>
                             </div>
                             <div class="d-grid my-3">
-                                <a class="btn btn-primary" href="./compose.html">Compose Email</a>
+                                <a class="btn btn-primary" href="{{ route('admin.email.send') }}">Thư đã gửi</a>
                             </div>
                             <div class="email-aside-nav collapse">
                                 <ul class="nav flex-column">
@@ -27,37 +27,6 @@
                                             <i data-feather="inbox" class="icon-lg me-2"></i>
                                             Inbox
                                             <span class="badge bg-danger fw-bolder ms-auto">2
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" href="#">
-                                            <i data-feather="mail" class="icon-lg me-2"></i>
-                                            Sent Mail
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" href="#">
-                                            <i data-feather="briefcase" class="icon-lg me-2"></i>
-                                            Important
-                                            <span class="badge bg-secondary fw-bolder ms-auto">4
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" href="#">
-                                            <i data-feather="file" class="icon-lg me-2"></i>
-                                            Drafts
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" href="#">
-                                            <i data-feather="star" class="icon-lg me-2"></i>
-                                            Tags
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" href="#">
-                                            <i data-feather="trash" class="icon-lg me-2"></i>
-                                            Trash
                                         </a>
                                     </li>
                                 </ul>
@@ -155,8 +124,8 @@
                                     <div class="email-list-item email-list-item--unread">
                                         <div class="email-list-actions">
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input delete-all-option"
-                                                    value={{ $val->id }}>
+                                                <input type="checkbox" class="form-check-input delete-all-option checkbox"
+                                                    value={{ $val->id }} name="item[]">
                                             </div>
                                             <a class="favorite" href="javascript:;"><span><i
                                                         data-feather="star"></i></span></a>
@@ -180,6 +149,6 @@
 
             @section('script')
                 <script type="text/javascript">
-                    var urlMailDelete = "{{ url('admin/email/delete?id=') }}";
+                    var urlMailDelete = "{{ url('admin/email/delete?ids=') }}";
                 </script>
             @endsection

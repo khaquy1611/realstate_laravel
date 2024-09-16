@@ -21,98 +21,103 @@
         var fontFamily = "'Roboto', Helvetica, sans-serif";
 
         // Monthly Users Chart
-        if($('#monthlyUsersChart').length) {
+        if ($("#monthlyUsersChart").length) {
             var options = {
-              chart: {
-                type: 'bar',
-                height: '318',
-                parentHeightOffset: 0,
-                foreColor: colors.bodyColor,
-                background: colors.cardBg,
-                toolbar: {
-                  show: false
+                chart: {
+                    type: "bar",
+                    height: "318",
+                    parentHeightOffset: 0,
+                    foreColor: colors.bodyColor,
+                    background: colors.cardBg,
+                    toolbar: {
+                        show: false,
+                    },
                 },
-              },
-              theme: {
-                mode: 'light'
-              },
-              tooltip: {
-                theme: 'light'
-              },
-              colors: [colors.primary],  
-              fill: {
-                opacity: .9
-              } , 
-              grid: {
-                padding: {
-                  bottom: -4
+                theme: {
+                    mode: "light",
                 },
-                borderColor: colors.gridBorder,
+                tooltip: {
+                    theme: "light",
+                },
+                colors: [colors.primary],
+                fill: {
+                    opacity: 0.9,
+                },
+                grid: {
+                    padding: {
+                        bottom: -4,
+                    },
+                    borderColor: colors.gridBorder,
+                    xaxis: {
+                        lines: {
+                            show: true,
+                        },
+                    },
+                },
+                series: [
+                    {
+                        name: "Người dùng",
+                        data: counts,
+                    },
+                ],
                 xaxis: {
-                  lines: {
-                    show: true
-                  }
-                }
-              },
-              series: [{
-                name: 'Người dùng',
-                data: counts
-              }],
-              xaxis: {
-                type: 'datetime',
-                categories: months,
-                axisBorder: {
-                  color: colors.gridBorder,
+                    type: "datetime",
+                    categories: months,
+                    axisBorder: {
+                        color: colors.gridBorder,
+                    },
+                    axisTicks: {
+                        color: colors.gridBorder,
+                    },
                 },
-                axisTicks: {
-                  color: colors.gridBorder,
+                yaxis: {
+                    title: {
+                        text: "Số lượng người dùng",
+                        style: {
+                            size: 9,
+                            color: colors.muted,
+                        },
+                    },
                 },
-              },
-              yaxis: {
-                title: {
-                  text: 'Số lượng người dùng',
-                  style:{
-                    size: 9,
-                    color: colors.muted
-                  }
+                legend: {
+                    show: true,
+                    position: "top",
+                    horizontalAlign: "center",
+                    fontFamily: fontFamily,
+                    itemMargin: {
+                        horizontal: 8,
+                        vertical: 0,
+                    },
                 },
-              },
-              legend: {
-                show: true,
-                position: "top",
-                horizontalAlign: 'center',
-                fontFamily: fontFamily,
-                itemMargin: {
-                  horizontal: 8,
-                  vertical: 0
+                stroke: {
+                    width: 0,
                 },
-              },
-              stroke: {
-                width: 0
-              },
-              dataLabels: {
-                enabled: true,
-                style: {
-                  fontSize: '10px',
-                  fontFamily: fontFamily,
+                dataLabels: {
+                    enabled: true,
+                    style: {
+                        fontSize: "10px",
+                        fontFamily: fontFamily,
+                    },
+                    offsetY: -27,
                 },
-                offsetY: -27
-              },
-              plotOptions: {
-                bar: {
-                  columnWidth: "50%",
-                  borderRadius: 4,
-                  dataLabels: {
-                    position: 'top',
-                    orientation: 'vertical',
-                  }
+                plotOptions: {
+                    bar: {
+                        columnWidth: "50%",
+                        borderRadius: 4,
+                        dataLabels: {
+                            position: "top",
+                            orientation: "vertical",
+                        },
+                    },
                 },
-              },
-            }
-            
-            var apexBarChart = new ApexCharts(document.querySelector("#monthlyUsersChart"), options);
+            };
+
+            var apexBarChart = new ApexCharts(
+                document.querySelector("#monthlyUsersChart"),
+                options
+            );
             apexBarChart.render();
-          }
+        }
         // Monthly Sales Chart - RTL - END
     };
 
@@ -172,19 +177,36 @@
         });
     };
     HT.deleteListMail = () => {
-        $('.delete-all-option').change(function() {
-            let total = '';
-            $('.delete-all-option').each(function() {
-                if (this.checked) {
-                    let id = $(this).val();
-                    total += id + ',';
-                }
-            }); 
-           
-            let url = urlMailDelete + total;
-            $('#getDeleteUrl').attr('href', url);
-        })
-    }
+        $("#inboxCheckAll").on("click", function () {
+            $(".checkbox").prop("checked", this.checked);
+        });
+
+        $(".checkbox").on("click", function () {
+            if ($(".checkbox:checked").length == $(".checkbox").length) {
+                $("#inboxCheckAll").prop("checked", true);
+            } else {
+                $("#inboxCheckAll").prop("checked", false);
+            }
+        });
+
+        $(".delete-all-option").on("click", function () {
+            var selectedItems = $(".checkbox:checked")
+                .map(function () {
+                    return $(this).val();
+                })
+                .get();
+
+            if (selectedItems.length > 0) {
+                // Convert the selected items into a comma-separated string
+                let ids = selectedItems.join(",");
+
+                // Redirect to a Laravel route with the IDs as URL parameters
+                window.location.href = urlMailDelete + ids;
+            } else {
+                alert("Vui lòng chọn ít nhất 1 item để xóa!.");
+            }
+        });
+    };
     $(document).ready(function () {
         HT.refreshCaptcha();
         HT.switchStatus();

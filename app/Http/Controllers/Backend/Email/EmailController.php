@@ -42,15 +42,14 @@ class EmailController extends Controller
        return view('backend.admin.email.send', compact('data'));
     }
     public function email_compose_send_delete(Request $request) {
-        if (!empty($request->id)) {
-            $option = explode(',', $request->id);
-            foreach($option as $key => $id) {
-                if (!empty($id)) {
-                    $getRecord = ComposeEmail::find($id);
-                    $getRecord->delete();
-                }
+        $ids = trim($request->query('ids'));
+        if (!empty($ids)) {
+            $idsArray = explode(',', $ids);
+            $deleted = ComposeEmail::whereIn('id', $idsArray )->delete();
+            if ($deleted) {
+                return redirect()->back()->with('success', 'Đã xóa thư đã gửi thành công.');
             }
+            return redirect()->back()->with('error', 'Xóa thư đã gửi không thành công. Vui lòng thử lại.');
         }
-        return redirect()->back()->with('success', 'Đã xóa thư đã gửi thành công.');
     }
 }

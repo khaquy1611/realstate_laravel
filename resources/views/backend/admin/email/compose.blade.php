@@ -37,31 +37,6 @@
                                                 Thư đã gửi
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" href="#">
-                                                <i data-feather="briefcase" class="icon-lg me-2"></i>
-                                                Important
-                                                <span class="badge bg-secondary fw-bolder ms-auto">4
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" href="#">
-                                                <i data-feather="file" class="icon-lg me-2"></i>
-                                                Drafts
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" href="#">
-                                                <i data-feather="star" class="icon-lg me-2"></i>
-                                                Tags
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" href="#">
-                                                <i data-feather="trash" class="icon-lg me-2"></i>
-                                                Trash
-                                            </a>
-                                        </li>
                                     </ul>
                                     <p class="text-muted tx-12 fw-bolder text-uppercase mb-2 mt-4">Labels</p>
                                     <ul class="nav flex-column">
