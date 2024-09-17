@@ -43,13 +43,6 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="password" class="col-sm-3 col-form-label">Mật khẩu:</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Vui lòng nhập mật khẩu...">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
                         <label for="address" class="col-sm-3 col-form-label">Địa chỉ: <span
                                 style="color:red">(*)</span></label>
                         <div class="col-sm-9">

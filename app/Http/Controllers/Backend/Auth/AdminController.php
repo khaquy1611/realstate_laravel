@@ -12,8 +12,10 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Models\User;
-
+use App\Mail\RegisterMail;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -61,8 +63,11 @@ class AdminController extends Controller
         $user->email = trim($request->email);
         $user->password = Hash::make($request->password);
         $user->passwordConfirm = Hash::make($request->passwordConfirm);
-        $user->save();
-        return redirect()->route('register')->with('success', 'Đăng Ký tài khoản thành công');
+        if($user->save()) {
+            return redirect()->route('register')->with('success', 'Đăng Ký tài khoản thành công');
+        }
+        
+        return redirect()->route('register')->with('error', 'Đăng Ký tài khoản thất bại , Vui lòng thử lại.');
     }
 
     public function profiles() {
@@ -170,9 +175,33 @@ class AdminController extends Controller
         $user->phone = trim($request->input('phone'));
         $user->role = trim($request->input('role'));
         $user->status = trim($request->input('status'));
-        if ($user->save()) {
+        $user->remember_token = Str::random(50);
+        $result = $user->save();
+        Mail::to($user->email)->send(new RegisterMail($user));
+        if ($result) {
             return redirect()->route('admin.users.create')->with('success', 'Thêm mới người dùng thành công.');
         }
         return redirect()->route('admin.users.create')->with('error', 'Thêm mới người dùng thất bại.');
+    }
+
+    public function set_new_password($token = '') {
+        $data['token'] = $token;
+        return view('backend.admin.auth.reset.reset_pass', $data);  
+    }
+
+    public function set_new_password_post($token = '', ResetPasswordRequest $request) {
+        $user = User::where('remember_token', '=', $token);
+        if ($user->count() == 0) {
+            abort(403);
+        }
+        $user = $user->first();
+        $user->password = Hash::make($request->input('$password'));
+        $user->passwordConfirm = Hash::make($request->passwordConfirm);
+        $user->remember_token = Str::random(50);
+        $user->status = '1';
+        if ($user->save()) {
+            return redirect()->route('login.show')->with('success', 'Mật khẩu mới đã được thiết lập.');
+        }
+        return redirect()->route('login.show')->with('success', 'Thiết lập mật khẩu mới thất bại. Vui lòng thử lại');
     }
 }

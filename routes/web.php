@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Auth\AgentController;
 use App\Http\Controllers\Backend\Auth\TwoFactorController;
 use App\Http\Controllers\Backend\Email\EmailController;
 use Illuminate\Support\Facades\Route;
+use App\Enums\RoleEnum;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,7 +33,7 @@ Route::middleware(['auth', 'preventBackHistory'])->group(function() {
     Route::post('2fa/verify', [TwoFactorController::class, 'verify2fa'])->name('2fa.verify.post');
 });
 
-Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(function() {
+Route::middleware(['auth', 'role:'. RoleEnum::ADMIN->value , 'preventBackHistory', '2fa'])->group(function() {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('admin/profiles', [AdminController::class, 'profiles'])->name('admin.profiles');
@@ -54,11 +55,13 @@ Route::middleware(['auth', 'role:admin', 'preventBackHistory', '2fa'])->group(fu
     Route::get('admin/email/read/delete/{id}', [EmailController::class, 'email_compose_read_delete'])->name('admin.email.read.delete');
 });
 
-Route::middleware(['auth', 'role:agent', 'preventBackHistory'])->group(function() { 
+Route::middleware(['auth', 'role:'. RoleEnum::AGENT->value , 'preventBackHistory'])->group(function() { 
     Route::get('agent/dashboard', [AgentController::class, 'index'])->name('agent.dashboard');
 });
 
 /* Admin auth */
+Route::get('set_new_password/{token}', [AdminController::class, 'set_new_password'])->name('set_new_password');
+Route::post('set_new_password/{token}', [AdminController::class, 'set_new_password_post'])->name('set_new_password');
 Route::get('register', [AdminController::class, 'register_form'])->name('register.show');
 Route::post('register', [AdminController::class, 'register'])->name('register');
 Route::get('login', [AdminController::class, 'login_form'])->name('login.show');
