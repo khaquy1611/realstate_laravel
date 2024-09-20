@@ -14,6 +14,16 @@ return [
                     'title' => 'Danh sách người dùng',
                     'route' => 'admin.users.index'
                 ],
+                [
+                    'title' => 'Vai trò',
+                    'route' => 'admin.role.index',
+                    'name' => ['role']
+                ],
+                [
+                    'title' => 'Quyền',
+                    'route' => 'admin.permission.index',
+                    'name' => ['permission']
+                ],
             ]
         ],
         [

@@ -56,7 +56,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => RoleEnum::class,
         ];
     }
 
@@ -87,7 +86,7 @@ class User extends Authenticatable
                     }
 
                     if (!empty(Request::get('created_at'))) {
-                        $resultQuery =  $resultQuery->where('users.created_at', 'like' , '%' . Request::get('created_at') . '%' );
+                        $resultQuery =  $resultQuery->where('users.created_at', 'like' , '%' . Request::get('created_at') . '%');
                     }
                    
                    

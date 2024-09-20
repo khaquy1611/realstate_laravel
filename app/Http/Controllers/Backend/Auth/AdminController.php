@@ -12,18 +12,24 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use App\Mail\RegisterMail;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Mail;
 
-class AdminController extends Controller
+class AdminController extends Controller implements HasMiddleware
 {
-    //
-    public function __construct() {
-
+    public static function middleware(): array
+    {
+        return [
+        // examples with aliases, pipe-separated names, guards, etc:
+            new Middleware('permission:details users', only: ['admin_users_details']),
+        ];
     }
-
     public function index() {
         $user = User::selectRaw('count(id) as count, DATE_FORMAT(created_at, "%Y-%m") as month')
                 ->groupBy('month')
@@ -43,12 +49,11 @@ class AdminController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password')
         ];
-        if (Auth::attempt($credentials, true)) {
+        if (Auth::attempt($credentials, true)) {   
             $request->session()->regenerate();
             return redirect()->route('2FA.form')->with('success','Đăng nhập thành công');
-        }else {
-            return redirect()->route('login.show')->with('error','Email hoặc Mật khẩu không chính xác');
         }
+        return redirect()->route('login.show')->with('error','Email hoặc Mật khẩu không chính xác');
     }
     
     public function register_form() {
@@ -85,7 +90,7 @@ class AdminController extends Controller
        $user->email = trim($request->input('email'));   
        $user->phone = trim($request->input('phone'));  
        if(!empty($request->input('password'))) {
-        $user->password = Hash::make($request->input('$password'));
+        $user->password = Hash::make($request->input('password'));
        } 
        if (!empty($request->file('photo'))) {
         $file = $request->file('photo');
@@ -96,12 +101,15 @@ class AdminController extends Controller
        }
        $user->address = trim($request->input('address'));   
        $user->about = trim($request->input('about'));   
-       $user->website = trim($request->input('website'));   
-       if ($user->save()) {
+       $user->website = trim($request->input('website')); 
+       $save = $user->save();
+       if ($save) {  
         return redirect()->route('admin.profiles')->with('success', 'Profiles Update SuccessFully...');
+        
        } else {
         return redirect()->back()->with('error', 'Profiles Update Failed Please Try Again...');
        }
+        
     }
 
     public function admin_users_list(Request $request) {
@@ -109,9 +117,43 @@ class AdminController extends Controller
             ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
             ['name' => 'Danh sách người dùng', 'url' => route('admin.users.index')],      
         ];
+        $all_users_with_all_their_roles = User::with('roles')->get();
         $data['getRecord'] = User::getRecord($request);
-        return view('backend.admin.users.list', compact('breadcrumbs', 'data'));
+        return view('backend.admin.users.list', compact('breadcrumbs', 'data', 'all_users_with_all_their_roles'));
     }
+
+    public function admin_users_edit($id = '') {
+        $roles = Role::pluck('name', 'name')->all();
+        $user = User::findOrFail($id);
+        $userRoles = $user->roles->pluck('name', 'name')->all();
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
+            ['name' => 'Danh sách người dùng', 'url' => route('admin.users.index')],      
+            ['name' => 'Sửa người dùng', 'url' => route('admin.users.edit',  $user->id)],      
+        ];
+        return view('backend.admin.users.edit',compact('user', 'roles', 'breadcrumbs', 'userRoles'));
+    }
+    
+    public function admin_users_update(UpdateUserRequest $request , $id = '') {
+        $user = User::findOrFail($id);
+        $user->name = trim($request->input('name'));
+        $user->username = trim($request->input('username'));
+        $user->email = trim($request->input('email'));
+        if(!empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('password'));
+        } 
+        $user->address = trim($request->input('address'));   
+        $user->phone = trim($request->input('phone'));
+        $user->status = trim($request->input('status'));
+        $user->syncRoles($request->roles);
+        $result = $user->update();
+        if ($result) {
+            return redirect()->route('admin.users.index')->with('success', 'Cập nhập người dùng thành công.');
+        }
+        return redirect()->route('admin.users.index')->with('error', 'Cập nhập người dùng thất bại.');
+      
+    }
+    
     public function logout(Request $request) {
         Auth::guard('web')->logout();
         $request->session()->invalidate();
@@ -159,7 +201,8 @@ class AdminController extends Controller
             ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
             ['name' => 'Tạo mới người dùng', 'url' => route('admin.users.create')],      
         ];
-        return view('backend.admin.users.create', compact('breadcrumbs'));
+        $roles = Role::pluck('name', 'name')->all();
+        return view('backend.admin.users.create', compact('breadcrumbs', 'roles'));
     }
 
 
@@ -169,15 +212,16 @@ class AdminController extends Controller
         $user->username = trim($request->input('username'));
         $user->email = trim($request->input('email'));
         if(!empty($request->input('password'))) {
-            $user->password = Hash::make($request->input('$password'));
+            $user->password = Hash::make($request->input('password'));
         } 
         $user->address = trim($request->input('address'));   
         $user->phone = trim($request->input('phone'));
-        $user->role = trim($request->input('role'));
         $user->status = trim($request->input('status'));
         $user->remember_token = Str::random(50);
+        $user->syncRoles($request->roles);
         $result = $user->save();
         Mail::to($user->email)->send(new RegisterMail($user));
+      
         if ($result) {
             return redirect()->route('admin.users.create')->with('success', 'Thêm mới người dùng thành công.');
         }
@@ -195,13 +239,41 @@ class AdminController extends Controller
             abort(403);
         }
         $user = $user->first();
-        $user->password = Hash::make($request->input('$password'));
-        $user->passwordConfirm = Hash::make($request->passwordConfirm);
+        $user->password = Hash::make($request->input('password'));
+        $user->passwordConfirm = Hash::make($request->input('passwordConfirm'));
         $user->remember_token = Str::random(50);
         $user->status = '1';
         if ($user->save()) {
             return redirect()->route('login.show')->with('success', 'Mật khẩu mới đã được thiết lập.');
         }
-        return redirect()->route('login.show')->with('success', 'Thiết lập mật khẩu mới thất bại. Vui lòng thử lại');
+        return redirect()->back()->with('success', 'Thiết lập mật khẩu mới thất bại. Vui lòng thử lại');
+    }
+
+    public function permission($id = '') {
+       $user = User::find($id);
+       $all_column = $user->roles->first();
+       $roles = Role::orderBy('id', 'DESC')->get();
+       return view('backend.admin.users.permission', compact('user', 'roles'));
+    }
+
+    public function admin_users_delete($id = '') {
+        $roles = Role::pluck('name', 'name')->all();
+        $user = User::findOrFail($id);
+        $userRoles = $user->roles->pluck('name', 'name')->all();
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'url' => route('admin.dashboard')],
+            ['name' => 'Danh sách người dùng', 'url' => route('admin.users.index')],      
+            ['name' => 'Xóa người dùng', 'url' => route('admin.users.delete',  $user->id)],      
+        ];
+        return view('backend.admin.users.delete',compact('user', 'roles', 'breadcrumbs', 'userRoles'));
+    }
+
+    public function admin_users_destroy(Request $request , $id = '') {
+        $user = User::findOrFail($id);
+        $destroy = $user->delete();
+        if($destroy) {
+            return redirect()->route('admin.users.index')->with('success', 'Xóa người dùng thành công.');
+        }
+        return redirect()->route('admin.users.index')->with('error', 'Xóa người dùng thất bại. Vui lòng thử lại');
     }
 }

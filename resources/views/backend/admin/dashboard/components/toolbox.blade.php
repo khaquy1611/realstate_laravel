@@ -216,15 +216,20 @@
                     @if (!empty(Auth::user()->photo))
                         <img src="{{ asset('upload/' . Auth::user()->photo) }}" class="wd-30 ht-30 rounded-circle"
                             alt="image profiles previews">
+                    @else
+                        <img src="{{ asset('upload/default.png') }}" class="wd-30 ht-30 rounded-circle"
+                            alt="image profiles previews">
                     @endif
                 </a>
                 <div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                         <div class="mb-3">
+
                             @if (!empty(Auth::user()->photo))
                                 <img src="{{ asset('upload/' . Auth::user()->photo) }}"
                                     class="wd-80 ht-80 rounded-circle" alt="image profiles previews">
                             @endif
+
                         </div>
                         <div class="text-center">
                             <p class="tx-16 fw-bolder">{{ Auth::user()->name }}</p>

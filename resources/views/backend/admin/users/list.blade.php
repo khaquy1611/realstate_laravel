@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col-lg-12 stretch-card">
             <div class="card">
+                @include('backend.admin._message')
                 <div class="card-body">
                     <div class="card-title">
                         Tìm kiếm người dùng
@@ -13,14 +14,14 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Mã STT:</div>
-                                    <input type="text" name="id" value="{{ Request()->id }}" class="form-control"
+                                    <input type="text" name="id" userue="{{ Request()->id }}" class="form-control"
                                         placeholder="Nhập mã thứ tự...">
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Tên:</div>
-                                    <input type="text" name="name" value="{{ Request()->name }}" class="form-control"
+                                    <input type="text" name="name" userue="{{ Request()->name }}" class="form-control"
                                         placeholder="Nhập tên...">
                                 </div>
                             </div>
@@ -28,7 +29,7 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Họ tên:</div>
-                                    <input type="text" name="username" value="{{ Request()->username }}"
+                                    <input type="text" name="username" userue="{{ Request()->username }}"
                                         class="form-control" placeholder="Nhập họ tên...">
                                 </div>
                             </div>
@@ -36,23 +37,23 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Email:</div>
-                                    <input type="text" name="email" value="{{ Request()->email }}" class="form-control"
-                                        placeholder="Nhập email...">
+                                    <input type="text" name="email" userue="{{ Request()->email }}"
+                                        class="form-control" placeholder="Nhập email...">
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Số điện thoại:</div>
-                                    <input type="text" name="phone" value="{{ Request()->phone }}" class="form-control"
-                                        placeholder="Nhập số điện thoại...">
+                                    <input type="text" name="phone" userue="{{ Request()->phone }}"
+                                        class="form-control" placeholder="Nhập số điện thoại...">
                                 </div>
                             </div>
 
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Địa chỉ:</div>
-                                    <input type="text" name="address" value="{{ Request()->address }}"
+                                    <input type="text" name="address" userue="{{ Request()->address }}"
                                         class="form-control" placeholder="Nhập địa chỉ nơi ở...">
                                 </div>
                             </div>
@@ -60,7 +61,7 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Website:</div>
-                                    <input type="text" name="website" value="{{ Request()->website }}"
+                                    <input type="text" name="website" userue="{{ Request()->website }}"
                                         class="form-control" placeholder="Nhập địa chỉ website...">
                                 </div>
                             </div>
@@ -68,7 +69,7 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Ngày tạo:</div>
-                                    <input type="date" name="created_at" value="{{ Request()->created_at }}"
+                                    <input type="date" name="created_at" userue="{{ Request()->created_at }}"
                                         class="form-control" placeholder="Tìm kiếm theo ngày...">
                                 </div>
                             </div>
@@ -77,12 +78,12 @@
                                 <div class="mb-3">
                                     <div class="form-label">Vai trò:</div>
                                     <select class="form-control" name="role">
-                                        <option value="">-- Chọn vai trò --</option>
-                                        <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin
+                                        <option userue="">-- Chọn vai trò --</option>
+                                        <option userue="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin
                                         </option>
-                                        <option value="agent" {{ request('role') == 'agent' ? 'selected' : '' }}>Agent
+                                        <option userue="agent" {{ request('role') == 'agent' ? 'selected' : '' }}>Agent
                                         </option>
-                                        <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>User
+                                        <option userue="user" {{ request('role') == 'user' ? 'selected' : '' }}>User
                                         </option>
                                     </select>
                                 </div>
@@ -92,10 +93,10 @@
                                 <div class="mb-3">
                                     <div class="form-label">Trạng thái:</div>
                                     <select class="form-control" name="status">
-                                        <option value="">-- Chọn Trạng Thái --</option>
-                                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Kích hoạt
+                                        <option userue="">-- Chọn Trạng Thái --</option>
+                                        <option userue="1" {{ request('status') == '1' ? 'selected' : '' }}>Kích hoạt
                                         </option>
-                                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Không kích
+                                        <option userue="0" {{ request('status') == '0' ? 'selected' : '' }}>Không kích
                                             hoạt
                                         </option>
 
@@ -146,6 +147,7 @@
                                     <th>Website</th>
                                     <th>Địa chỉ</th>
                                     <th>Vai trò</th>
+                                    <th>Các quyền đã cấp</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                     <th>Ngày tạo</th>
@@ -153,15 +155,15 @@
                             </thead>
                             <tbody>
                                 @if (isset($data['getRecord']) && is_object($data['getRecord']))
-                                    @foreach ($data['getRecord'] as $key => $val)
+                                    @foreach ($data['getRecord'] as $key => $user)
                                         <tr class="table-info text-dark text-center">
-                                            <td>{{ $val->id }}</td>
-                                            <td>{{ $val->name }}</td>
-                                            <td>{{ $val->username }}</td>
-                                            <td>{{ $val->email }}</td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->username }}</td>
+                                            <td>{{ $user->email }}</td>
                                             <td>
-                                                @if (!empty($val->photo))
-                                                    <img src="{{ asset('upload/' . $val->photo) }}"
+                                                @if (!empty($user->photo))
+                                                    <img src="{{ asset('upload/' . $user->photo) }}"
                                                         style="width: 50%; height: 50%; border-radius: 50px; margin: 10px 0;"
                                                         alt="image profiles previews">
                                                 @else
@@ -170,35 +172,41 @@
                                                         alt="image profiles previews">
                                                 @endif
                                             </td>
-                                            <td>{{ $val->phone }}</td>
-                                            <td>{{ $val->website }}</td>
-                                            <td>{{ $val->address }}</td>
+                                            <td>{{ $user->phone }}</td>
+                                            <td>{{ $user->website }}</td>
+                                            <td>{{ $user->address }}</td>
                                             <td>
-                                                @if ($val->role === 'admin')
-                                                    <span class="badge bg-info">admin</span>
-                                                @elseif ($val->role == 'agent')
-                                                    <span class="badge bg-primary">Agent</span>
-                                                @else
-                                                    <span class="badge bg-success">User</span>
+                                                @if (!empty($user->getRoleNames()))
+                                                    @foreach ($user->getRoleNames() as $rolename)
+                                                        <span class="badge bg-info mx-1">{{ $rolename }}</span>
+                                                    @endforeach
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($val->status)
-                                                    <span class="badge bg-primary" id="status-{{ $val->id }}">Kích
-                                                        hoạt</span>
+                                                @if (!empty($user->getPermissionsViaRoles()))
+                                                    @foreach ($user->getPermissionsViaRoles() as $key => $permission)
+                                                        <span class="badge bg-danger mx-1">{{ $permission->name }}</span>
+                                                    @endforeach
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                @if ($user->status)
+                                                    <span class="badge bg-primary" id="status-{{ $user->id }}">Kích
+                                                        Hoạt</span>
                                                 @else
-                                                    <span class="badge bg-danger" id="status-{{ $val->id }}">Không
+                                                    <span class="badge bg-danger" id="status-{{ $user->id }}">Không
                                                         kích hoạt</span>
                                                 @endif
                                             </td>
-                                            <td>
-                                                <a class="toggle-status-btn btn btn-small {{ $val->status ? 'btn-danger' : 'btn-primary' }}"
-                                                    data-user-id="{{ $val->id }}">
-                                                    {{ $val->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
+                                            <td class="action">
+                                                <a class="toggle-status-btn btn btn-small {{ $user->status ? 'btn-danger' : 'btn-primary' }}"
+                                                    data-user-id="{{ $user->id }}">
+                                                    {{ $user->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
                                                 </a>
-
+                                                @can('details users')
                                                 <a class="dropdown-item d-flex view-details align-items-center btn-success"
-                                                    href="{{ route('admin.user.details', $val->id) }}"><svg
+                                                    href="{{ route('admin.user.details', $user->id) }}"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -206,8 +214,20 @@
                                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                         <circle cx="12" cy="12" r="3"></circle>
                                                     </svg> <span class="">Xem chi tiết</span></a>
+                                                @endcan
+                                                <a href="{{ route('admin.users.edit', $user->id) }}"
+                                                    class="btn btn-primary">
+                                                    <i class="link-icon" data-feather="edit"></i>
+                                                    Sửa người dùng
+                                                </a>
+
+                                                <a href="{{ route('admin.users.delete', $user->id) }}"
+                                                    class="btn btn-danger">
+                                                    <i class="link-icon" data-feather="trash"></i>
+                                                    Xóa người dùng
+                                                </a>
                                             </td>
-                                            <td>{{ date('d-m-Y', strtotime($val->created_at)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
                                         </tr>
                                     @endforeach
                                 @endif

@@ -12,6 +12,6 @@ class AgentController extends Controller
 
     }
     public function index() {
-        return view('agent.backend.agent_dashboard');
+        return view('backend.agent.agent_dashboard');
     }
 }

@@ -3,7 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\Role;
+use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isAgent;
 use App\Http\Middleware\RevalidateBackHistory;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TwoFactorMiddleware;
@@ -18,7 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
         $middleware->alias([
-            'role' => Role::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'isAdmin' => isAdmin::class,
+            'isAgent' => isAgent::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'preventBackHistory' => RevalidateBackHistory::class,
             'preventBackPrevious' => RedirectIfAuthenticated::class,
             '2fa' => TwoFactorMiddleware::class,

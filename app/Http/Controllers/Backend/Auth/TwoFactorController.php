@@ -59,15 +59,14 @@ class TwoFactorController extends Controller
     public function verify2fa(Request $request)
     {
     $user = Auth::user();
+  
     $google2fa = new Google2FA();
-
     $valid = $google2fa->verifyKey($user->google2fa_secret, trim($request->input('2fa_code')));
-
     if ($valid) {
-        $request->session()->put('2fa_passed', true);
+        $request->session()->put('2fa_passed', $valid);
         return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công');
     }
-
-    return back()->withErrors(['2fa_code' => 'Mã 2FA không hợp lệ.']);
+    
+    return redirect()->back()->withErrors(['2fa_code' => 'Mã 2FA không hợp lệ.']);
     }
 }

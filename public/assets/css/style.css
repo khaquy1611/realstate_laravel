@@ -18,10 +18,34 @@
     color: #fff;
     padding: 10px;
     text-align: center;
+    width: 68%;
 }
 .view-details svg {
     color: #fff;
 }
 .refresh {
     margin-left: 10px;
+}
+.assign-perrmission {
+    align-items: center;
+}
+.assign-perrmission span {
+    width: 8%;
+    height: 2%;
+}
+.btn-delete {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.action a{
+    display: block;
+    margin: 10px 0;
+}
+.action a:first-child {
+    margin: 0!important;
+}
+.action {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
