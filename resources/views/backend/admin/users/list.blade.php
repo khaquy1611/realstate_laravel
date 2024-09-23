@@ -1,7 +1,30 @@
 @extends('backend.admin.layout')
 @section('admin')
     {!! generateBreadcrumbs($breadcrumbs) !!}
-    <div class="row">
+    <div class="d-flex align-items-center total">
+        <a href="javascript:void(0)" class="btn btn-info">
+            <span class="totals">{{ $data['totalAdmin'] }}</span> Admin
+        </a>&nbsp;&nbsp;
+        <a href="javascript:void(0)" class="btn btn-info">
+            <span class="totals">{{ $data['totalSuperAdmin'] }}</span> Super Admin
+        </a>&nbsp;&nbsp;
+        <a href="javascript:void(0)" class="btn btn-warning">
+            <span class="totals">{{ $data['totalAgent'] }}</span> Agent
+        </a>&nbsp;&nbsp;
+        <a href="javascript:void(0)" class="btn btn-secondary">
+            <span class="totals">{{ $data['totalUser'] }}</span> User
+        </a>&nbsp;&nbsp;
+        <a href="javascript:void(0)" class="btn btn-primary">
+            <span class="totals">{{ $data['totalActive'] }}</span> Kích hoạt
+        </a>&nbsp;&nbsp;
+        <a href="javascript:void(0)" class="btn btn-danger">
+            <span class="totals">{{ $data['totalInActive'] }}</span> Không kích hoạt
+        </a>&nbsp;&nbsp;
+        <a href="javascript:void(0)" class="btn btn-success">
+            <span class="totals">{{ $data['total'] }}</span> Tổng
+        </a>
+    </div>
+    <div class="row mt-4 mb-4">
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 @include('backend.admin._message')
@@ -28,8 +51,8 @@
                             <div class="col-sm-3">
                                 <div class="mb-3">
                                     <div class="form-label">Tên:</div>
-                                    <input type="text" name="name" userue="{{ Request()->name }}" class="form-control"
-                                        placeholder="Nhập tên...">
+                                    <input type="text" name="name" userue="{{ Request()->name }}"
+                                        class="form-control" placeholder="Nhập tên...">
                                 </div>
                             </div>
 
@@ -140,7 +163,6 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered">
                             <thead>

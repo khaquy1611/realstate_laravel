@@ -20,6 +20,20 @@
     text-align: center;
     width: 68%;
 }
+.total a {
+    color: #fff;
+    position: relative;
+}
+.totals {
+    background: #f00;
+    border-radius: 50%;
+    width: 20px;
+    display: inline-block;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    left: -4px;
+}
 .view-details svg {
     color: #fff;
 }

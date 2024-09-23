@@ -119,6 +119,13 @@ class AdminController extends Controller implements HasMiddleware
         ];
         $all_users_with_all_their_roles = User::with('roles')->get();
         $data['getRecord'] = User::getRecord($request);
+        $data['totalAdmin'] = User::role('admin')->count();
+        $data['totalSuperAdmin'] = User::role(['admin', 'super-admin'])->count();
+        $data['totalAgent'] = User::role('agent')->count();
+        $data['totalUser'] = User::role('user')->count();
+        $data['totalActive'] = User::where('status' , '=' , '1')->count();
+        $data['totalInActive'] = User::where('status' , '=' , '0')->count();
+        $data['total'] = User::where('status' , '=' , '1')->count();
         return view('backend.admin.users.list', compact('breadcrumbs', 'data', 'all_users_with_all_their_roles'));
     }
 
