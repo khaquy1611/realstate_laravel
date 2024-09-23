@@ -85,8 +85,9 @@ class User extends Authenticatable
                         $resultQuery =  $resultQuery->where('users.website', '=', Request::get('website'));
                     }
 
-                    if (!empty(Request::get('created_at'))) {
-                        $resultQuery =  $resultQuery->where('users.created_at', 'like' , '%' . Request::get('created_at') . '%');
+                    if (!empty(Request::get('start_date')) && !empty(Request::get('end_date'))) {
+                        $resultQuery =  $resultQuery->where('users.created_at', '>=' , Request::get('start_date'))
+                                                    ->where('users.created_at', '<=' , Request::get('end_date'));
                     }
                    
                    

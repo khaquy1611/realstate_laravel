@@ -96,13 +96,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
-                                <div class="mb-3">
-                                    <div class="form-label">Ngày tạo:</div>
-                                    <input type="date" name="created_at" userue="{{ Request()->created_at }}"
-                                        class="form-control" placeholder="Tìm kiếm theo ngày...">
-                                </div>
-                            </div>
+
 
                             <div class="col-sm-2">
                                 <div class="mb-3">
@@ -133,7 +127,21 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-sm-2">
+                                <div class="mb-3">
+                                    <div class="form-label">Ngày bắt đầu:</div>
+                                    <input type="date" name="start_date" userue="{{ Request()->start_date }}"
+                                        class="form-control" placeholder="Tìm kiếm theo ngày bắt đầu...">
+                                </div>
+                            </div>
 
+                            <div class="col-sm-2">
+                                <div class="mb-3">
+                                    <div class="form-label">Ngày kết thúc:</div>
+                                    <input type="date" name="end_date" userue="{{ Request()->end_date }}"
+                                        class="form-control" placeholder="Tìm kiếm theo ngày kết thúc...">
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">
 
