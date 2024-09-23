@@ -52,6 +52,11 @@ Route::middleware(['auth', 'preventBackHistory', '2fa', 'role:super-admin|admin'
     Route::get('admin/users/permission/{id}', [AdminController::class, 'permission'])->name('admin.users.permission');
     Route::get('admin/users/{id}/delete', [AdminController::class, 'admin_users_delete'])->name('admin.users.delete');
     Route::post('admin/users/{id}/destroy', [AdminController::class, 'admin_users_destroy'])->name('admin.users.destroy');
+    Route::post('admin/users/update/name', [AdminController::class, 'update_name_ajax'])->name('admin.users.update.name');
+    
+    /* Impersonate (Chuyển quyền nhanh ) */
+    Route::get('admin/impersonate/{id}/users', [AdminController::class, 'impersonate'])->name('admin.users.impersonate');
+    Route::get('admin/stop-impersonate', [AdminController::class, 'stopImpersonate'])->name('admin.stop.impersonate');
     
     /* Email */
     Route::get('admin/email/compose', [EmailController::class, 'email_compose'])->name('admin.email.compose');
@@ -86,9 +91,7 @@ Route::middleware(['auth', 'preventBackHistory', '2fa', 'role:super-admin|admin'
     Route::get('admin/permission/delete/{id}', [PermissionController::class, 'delete'])->name('admin.permission.delete');
     Route::post('admin/permission/destroy/{id}', [PermissionController::class, 'destroy'])->name('admin.permission.destroy');
 
-    /* Impersonate (Chuyển quyền nhanh ) */
-    Route::get('admin/impersonate/{id}/users', [AdminController::class, 'impersonate'])->name('admin.users.impersonate');
-    Route::get('admin/stop-impersonate', [AdminController::class, 'stopImpersonate'])->name('admin.stop.impersonate');
+    
 
 });
 

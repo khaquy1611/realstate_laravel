@@ -193,85 +193,100 @@
                             <tbody>
                                 @if (isset($data['getRecord']) && is_object($data['getRecord']))
                                     @foreach ($data['getRecord'] as $key => $user)
-                                        <tr class="table-info text-dark text-center">
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>
-                                                @if (!empty($user->photo))
-                                                    <img src="{{ asset('upload/' . $user->photo) }}"
-                                                        style="width: 50%; height: 50%; border-radius: 50px; margin: 10px 0;"
-                                                        alt="image profiles previews">
-                                                @else
-                                                    <img src="{{ asset('upload/default.png') }}"
-                                                        style="width: 50%; height: 50%; border-radius: 50px; margin: 10px 0;"
-                                                        alt="image profiles previews">
-                                                @endif
-                                            </td>
-                                            <td>{{ $user->phone }}</td>
-                                            <td>{{ $user->website }}</td>
-                                            <td>{{ $user->address }}</td>
-                                            <td>
-                                                @if (!empty($user->getRoleNames()))
-                                                    @foreach ($user->getRoleNames() as $rolename)
-                                                        <span class="badge bg-info mx-1">{{ $rolename }}</span>
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if (!empty($user->getPermissionsViaRoles()))
-                                                    @foreach ($user->getPermissionsViaRoles() as $key => $permission)
-                                                        <span class="badge bg-danger mx-1">{{ $permission->name }}</span>
-                                                    @endforeach
-                                                @endif
+                                        <form class="save_name_form{{ $user->id }}"
+                                            action="{{ route('admin.users.update.name') }}" method="POST">
+                                            @csrf
+                                            <tr class="table-info text-dark text-center">
+                                                <td>{{ $user->id }}</td>
+                                                <td style="min-width: 150px;text-align:left">
+                                                    {{ $user->name }}
+                                                    <input type="hidden" name="edit_id" value="{{ $user->id }}">
+                                                    <input type="text" name="edit_name" class="form-control"
+                                                        value="{{ old('name', $user->name) }}">
+                                                    <button type="button" class="btn btn-success mt-2 submitform"
+                                                        id="{{ $user->id }}">Lưu</button>
+                                                </td>
+                                                <td>{{ $user->username }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>
+                                                    @if (!empty($user->photo))
+                                                        <img src="{{ asset('upload/' . $user->photo) }}"
+                                                            style="width: 50%; height: 50%; border-radius: 50px; margin: 10px 0;"
+                                                            alt="image profiles previews">
+                                                    @else
+                                                        <img src="{{ asset('upload/default.png') }}"
+                                                            style="width: 50%; height: 50%; border-radius: 50px; margin: 10px 0;"
+                                                            alt="image profiles previews">
+                                                    @endif
+                                                </td>
+                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->website }}</td>
+                                                <td>{{ $user->address }}</td>
+                                                <td>
+                                                    @if (!empty($user->getRoleNames()))
+                                                        @foreach ($user->getRoleNames() as $rolename)
+                                                            <span class="badge bg-info mx-1">{{ $rolename }}</span>
+                                                        @endforeach
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if (!empty($user->getPermissionsViaRoles()))
+                                                        @foreach ($user->getPermissionsViaRoles() as $key => $permission)
+                                                            <span
+                                                                class="badge bg-danger mx-1">{{ $permission->name }}</span>
+                                                        @endforeach
+                                                    @endif
 
-                                            </td>
-                                            <td>
-                                                @if ($user->status)
-                                                    <span class="badge bg-primary" id="status-{{ $user->id }}">Kích
-                                                        Hoạt</span>
-                                                @else
-                                                    <span class="badge bg-danger" id="status-{{ $user->id }}">Không
-                                                        kích hoạt</span>
-                                                @endif
-                                            </td>
-                                            <td class="action">
-                                                <a class="toggle-status-btn btn btn-small {{ $user->status ? 'btn-danger' : 'btn-primary' }}"
-                                                    data-user-id="{{ $user->id }}">
-                                                    {{ $user->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
-                                                </a>
-                                                @can('details users')
-                                                    <a class="dropdown-item d-flex view-details align-items-center btn-success"
-                                                        href="{{ route('admin.user.details', $user->id) }}"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-eye icon-sm me-2">
-                                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                                            <circle cx="12" cy="12" r="3"></circle>
-                                                        </svg> <span class="">Xem chi tiết</span></a>
-                                                @endcan
-                                                <a href="{{ route('admin.users.edit', $user->id) }}"
-                                                    class="btn btn-primary">
-                                                    <i class="link-icon" data-feather="edit"></i>
-                                                    Sửa người dùng
-                                                </a>
+                                                </td>
+                                                <td>
+                                                    @if ($user->status)
+                                                        <span class="badge bg-primary"
+                                                            id="status-{{ $user->id }}">Kích
+                                                            Hoạt</span>
+                                                    @else
+                                                        <span class="badge bg-danger"
+                                                            id="status-{{ $user->id }}">Không
+                                                            kích hoạt</span>
+                                                    @endif
+                                                </td>
+                                                <td class="action">
+                                                    <a class="toggle-status-btn btn btn-small {{ $user->status ? 'btn-danger' : 'btn-primary' }}"
+                                                        data-user-id="{{ $user->id }}">
+                                                        {{ $user->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
+                                                    </a>
+                                                    @can('details users')
+                                                        <a class="dropdown-item d-flex view-details align-items-center btn-success"
+                                                            href="{{ route('admin.user.details', $user->id) }}"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                class="feather feather-eye icon-sm me-2">
+                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                                <circle cx="12" cy="12" r="3"></circle>
+                                                            </svg> <span class="">Xem chi tiết</span></a>
+                                                    @endcan
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                                        class="btn btn-primary">
+                                                        <i class="link-icon" data-feather="edit"></i>
+                                                        Sửa người dùng
+                                                    </a>
 
-                                                <a href="{{ route('admin.users.delete', $user->id) }}"
-                                                    class="btn btn-danger">
-                                                    <i class="link-icon" data-feather="trash"></i>
-                                                    Xóa người dùng
-                                                </a>
+                                                    <a href="{{ route('admin.users.delete', $user->id) }}"
+                                                        class="btn btn-danger">
+                                                        <i class="link-icon" data-feather="trash"></i>
+                                                        Xóa người dùng
+                                                    </a>
 
-                                                <a href="{{ route('admin.users.impersonate', $user->id) }}"
-                                                    class="btn btn-info" style="color: #fff">
-                                                    <i class="link-icon" data-feather="corner-down-left"></i>
-                                                    Chuyển quyền nhanh
-                                                </a>
-                                            </td>
-                                            <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
-                                        </tr>
+                                                    <a href="{{ route('admin.users.impersonate', $user->id) }}"
+                                                        class="btn btn-info" style="color: #fff">
+                                                        <i class="link-icon" data-feather="corner-down-left"></i>
+                                                        Chuyển quyền nhanh
+                                                    </a>
+                                                </td>
+                                                <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
+                                            </tr>
+                                        </form>
                                     @endforeach
                                 @endif
                             </tbody>

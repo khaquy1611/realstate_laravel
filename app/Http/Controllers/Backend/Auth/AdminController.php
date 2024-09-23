@@ -298,7 +298,7 @@ class AdminController extends Controller implements HasMiddleware
     }
     
     public function stopImpersonate()
-{
+    {
     // Kiểm tra xem có đang impersonate hay không
     if (session()->has('impersonate')) {
         // Lấy lại ID của người dùng ban đầu
@@ -315,5 +315,13 @@ class AdminController extends Controller implements HasMiddleware
     }
 
     return redirect()->back()->with('error', 'Không có người dùng nào đang bị impersonate.');
-}
+    }   
+
+    public function update_name_ajax(Request $request) {
+        $recoder = User::find(trim($request->input('edit_id')));
+        $recoder->name = trim($request->input('edit_name'));
+        $recoder->save();
+        $json['success'] = 'Sửa đổi dữ liệu thành công.';
+        echo json_encode( $json);
+    }
 }

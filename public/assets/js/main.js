@@ -207,10 +207,27 @@
             }
         });
     };
+
+    HT.updateAjaxName = () => {
+        $('table').delegate('.submitform', 'click', function() {
+            let id = $(this).attr('id');
+            $.ajax({
+                url: "users/update/name",
+                method: 'POST',
+                token: _token,
+                data: $('.save_name_form' + id).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                   alert(response.success);
+                }
+            })
+        });
+    }
     $(document).ready(function () {
         HT.refreshCaptcha();
         HT.switchStatus();
         HT.customUsersCharts();
         HT.deleteListMail();
+        HT.updateAjaxName();
     });
 })(jQuery);
