@@ -5,6 +5,13 @@
         <div class="col-lg-12 stretch-card">
             <div class="card">
                 @include('backend.admin._message')
+                @if (session()->has('impersonate'))
+                    <div class="alert alert-warning">
+                        Bạn đang impersonate người dùng khác. <a href="{{ route('admin.stop.impersonate') }}">Thoát khỏi chế
+                            độ
+                            impersonate</a>.
+                    </div>
+                @endif
                 <div class="card-body">
                     <div class="card-title">
                         Tìm kiếm người dùng
@@ -205,15 +212,15 @@
                                                     {{ $user->status ? 'Ngừng kích hoạt' : 'Kích hoạt' }}
                                                 </a>
                                                 @can('details users')
-                                                <a class="dropdown-item d-flex view-details align-items-center btn-success"
-                                                    href="{{ route('admin.user.details', $user->id) }}"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                        class="feather feather-eye icon-sm me-2">
-                                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                                        <circle cx="12" cy="12" r="3"></circle>
-                                                    </svg> <span class="">Xem chi tiết</span></a>
+                                                    <a class="dropdown-item d-flex view-details align-items-center btn-success"
+                                                        href="{{ route('admin.user.details', $user->id) }}"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-eye icon-sm me-2">
+                                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                            <circle cx="12" cy="12" r="3"></circle>
+                                                        </svg> <span class="">Xem chi tiết</span></a>
                                                 @endcan
                                                 <a href="{{ route('admin.users.edit', $user->id) }}"
                                                     class="btn btn-primary">
@@ -225,6 +232,12 @@
                                                     class="btn btn-danger">
                                                     <i class="link-icon" data-feather="trash"></i>
                                                     Xóa người dùng
+                                                </a>
+
+                                                <a href="{{ route('admin.users.impersonate', $user->id) }}"
+                                                    class="btn btn-info" style="color: #fff">
+                                                    <i class="link-icon" data-feather="corner-down-left"></i>
+                                                    Chuyển quyền nhanh
                                                 </a>
                                             </td>
                                             <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>

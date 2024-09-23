@@ -35,7 +35,7 @@ Route::middleware(['auth', 'preventBackHistory'])->group(function() {
     Route::post('2fa/verify', [TwoFactorController::class, 'verify2fa'])->name('2fa.verify.post');
 });
 
-Route::middleware(['auth', 'preventBackHistory', '2fa', 'role:super-admin|admin', 'isAdmin'])->group(function() {
+Route::middleware(['auth', 'preventBackHistory', '2fa', 'role:super-admin|admin', 'isAdmin', 'impersonate'])->group(function() {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('admin/profiles', [AdminController::class, 'profiles'])->name('admin.profiles');
@@ -85,6 +85,10 @@ Route::middleware(['auth', 'preventBackHistory', '2fa', 'role:super-admin|admin'
     Route::post('admin/permission/update/{id}', [PermissionController::class, 'update'])->name('admin.permission.update');
     Route::get('admin/permission/delete/{id}', [PermissionController::class, 'delete'])->name('admin.permission.delete');
     Route::post('admin/permission/destroy/{id}', [PermissionController::class, 'destroy'])->name('admin.permission.destroy');
+
+    /* Impersonate (Chuyển quyền nhanh ) */
+    Route::get('admin/impersonate/{id}/users', [AdminController::class, 'impersonate'])->name('admin.users.impersonate');
+    Route::get('admin/stop-impersonate', [AdminController::class, 'stopImpersonate'])->name('admin.stop.impersonate');
 
 });
 

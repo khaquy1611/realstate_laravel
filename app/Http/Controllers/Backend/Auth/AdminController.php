@@ -276,4 +276,37 @@ class AdminController extends Controller implements HasMiddleware
         }
         return redirect()->route('admin.users.index')->with('error', 'Xóa người dùng thất bại. Vui lòng thử lại');
     }
+
+    public function impersonate($id = '') {
+        $user = User::find($id);
+        if (!auth()->user()->hasAnyRole(['admin', 'super-admin'])) {
+            return redirect()->back()->with('error', 'Bạn không có quyền impersonate.'); 
+        }
+        if ($user) {
+            session(['impersonate_original' => auth()->id()]);
+            session(['impersonate' => $user->id]);
+            return redirect()->route('admin.users.index')->with('success', 'Bạn đã impersonate người dùng ' . $user->name);
+        }
+        return redirect()->back()->with('error', 'Không tìm thấy người dùng.');
+    }
+    
+    public function stopImpersonate()
+{
+    // Kiểm tra xem có đang impersonate hay không
+    if (session()->has('impersonate')) {
+        // Lấy lại ID của người dùng ban đầu
+        $originalUserId = session('impersonate_original');
+
+        // Đăng nhập lại người dùng ban đầu
+        Auth::loginUsingId($originalUserId);
+
+        // Xóa session impersonate
+        session()->forget(['impersonate', 'impersonate_original']);
+
+        // Chuyển hướng về trang chủ
+        return redirect()->route('admin.dashboard')->with('message', 'Bạn đã dừng impersonate.');
+    }
+
+    return redirect()->back()->with('error', 'Không có người dùng nào đang bị impersonate.');
+}
 }

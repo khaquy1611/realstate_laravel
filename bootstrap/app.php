@@ -9,6 +9,7 @@ use App\Http\Middleware\RevalidateBackHistory;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TwoFactorMiddleware;
 use App\Http\Middleware\AuthenticateMiddleware;
+use App\Http\Middleware\Impersonate;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -27,7 +28,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'preventBackHistory' => RevalidateBackHistory::class,
             'preventBackPrevious' => RedirectIfAuthenticated::class,
             '2fa' => TwoFactorMiddleware::class,
-            'auth' => AuthenticateMiddleware::class
+            'auth' => AuthenticateMiddleware::class,
+            'impersonate' => Impersonate::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
